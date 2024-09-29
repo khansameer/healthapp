@@ -9,6 +9,7 @@ const colorGray = Color.fromRGBO(178, 178, 178, 1);
 const colorFillBg = Color.fromRGBO(217, 217, 217, 1);
 const colorBG = Color.fromRGBO(240, 240, 240, 1);
 const colorYellow = Color.fromRGBO(253, 255, 147, 1);
+const colorPinkLight = Color.fromRGBO(150, 115, 217, 0.20);
 //const colorMenu = Color.fromRGBO(123, 123, 123, 1);
 
 const colorContainer = Color.fromRGBO(243, 253, 240, 1);

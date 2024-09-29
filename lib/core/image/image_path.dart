@@ -22,3 +22,4 @@ const String icQuizUser = "$baseImagePath/ic_quiz_user.png";
 const String icNews1 = "$baseImagePath/ic_news1.png";
 const String icNews2 = "$baseImagePath/ic_news2.png";
 const String icNews3 = "$baseImagePath/ic_news3.png";
+const String icProfileBG = "$baseImagePath/ic_profile_bg.png";

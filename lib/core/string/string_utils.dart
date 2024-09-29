@@ -35,3 +35,17 @@ const String profile = "Profile";
 const String takeQuiz = "Take Quiz";
 const String topNews = "Top news";
 const String seeAll = "See All";
+const String createProfile = "Create Your Profile";
+const String createProfileDesc =
+    "Lorem ipsum dolor sit amet consectetur. Ut amet urna sapien amet consequat porta ornare pellentesque lobortis.";
+const String symptomsTacker = "Symptoms Tacker";
+const String aiDoctor = "Ai Doctor";
+const String medicineReminder = "Medicine Reminder";
+const String pregnancy = "Pregnancy's and parenting";
+const String save = "Saved";
+const String myHealthGoal = "My Health Goal";
+const String interactionCheck = "Interaction check";
+const String myHealth = "My Health Tips and Tricks";
+const String myTool = "My Tools";
+const String zipCode = "Zip Code";
+const String searchHint = "Search symptoms here...";

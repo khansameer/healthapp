@@ -26,6 +26,10 @@ class DashboardProvider extends ChangeNotifier {
   List<CommonModel> _listNews = [];
   List<CommonModel> get listNews => _listNews;
 
+  //News  List
+  List<CommonModel> _doctorList = [];
+  List<CommonModel> get doctorList => _doctorList;
+
   void setIndex(int index) {
     _selectedIndex = index;
     notifyListeners();
@@ -95,6 +99,27 @@ class DashboardProvider extends ChangeNotifier {
           title: "Billions worldwide lack\nadequate int...", image: icNews2),
       CommonModel(
           title: "Older Singaporeans\nvaccinated agai...", image: icNews3),
+    ];
+    notifyListeners(); // Notify listeners that the list has changed
+  }
+
+  void loadDoctorList() {
+    _doctorList = [
+      CommonModel(title: "General Practice", image: icCat),
+      CommonModel(title: "Pediatrics", image: icCat1),
+      CommonModel(title: "Cardiology", image: icCat2),
+      CommonModel(title: "Dermatology", image: icCat3),
+      CommonModel(title: "Endocrinology", image: icCat4),
+      CommonModel(title: "Gastroenterology", image: icCat5),
+      CommonModel(title: "Geriatrics", image: icCat6),
+      CommonModel(title: "Hematology", image: icCat7),
+      CommonModel(title: "Infectious\nDisease", image: icCat),
+      CommonModel(title: "Nephrology", image: icCat2),
+      CommonModel(title: "Neurology", image: icCat3),
+      CommonModel(title: "Obstetrics and\nGynecology", image: icCat4),
+      CommonModel(title: "Oncology", image: icCat5),
+      CommonModel(title: "Ophthalmology", image: icCat7),
+      CommonModel(title: "Orthopedics", image: icCat7),
     ];
     notifyListeners(); // Notify listeners that the list has changed
   }

@@ -7,7 +7,10 @@ import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/dashborad_provider.dart';
 import 'package:junohealthapp/screen/dashboard/dashboard_screen.dart';
 import 'package:junohealthapp/screen/dashboard/page/home_page/home_page_view.dart';
+import 'package:junohealthapp/screen/dashboard/page/profile/profile_page_view.dart';
 import 'package:provider/provider.dart';
+
+import '../../screen/dashboard/page/doctor/doctor_view.dart';
 
 class CommonAppScaffoldView extends StatelessWidget {
   const CommonAppScaffoldView(
@@ -31,14 +34,16 @@ class CommonAppScaffoldView extends StatelessWidget {
               builder: (context, provider, child) {
                 switch (provider.selectedIndex) {
                   case 0:
-                    return HomePageView();
+                    return const HomePageView();
                   case 1:
-                    return Text('Search');
+                    return const DoctorView();
                   case 2:
-                    return Text('Profile');
+                    return const ProfilePageView();
+                  case 3:
+                    return const ProfilePageView();
 
                   default:
-                    return Text('Home');
+                    return const Text('Home');
                 }
               },
             ),
