@@ -14,6 +14,7 @@ class DoctorCategoryList extends StatelessWidget {
       Future.microtask(() {
         provider.loadDoctorList();
       });
+
       return GridView.builder(
         shrinkWrap: true,
         primary: false,
