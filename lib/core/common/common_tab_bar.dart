@@ -29,7 +29,7 @@ class CommonTabBar extends StatelessWidget {
             ),
             backgroundColor: Colors.white,
             bottom: TabBar(
-              //padding: const EdgeInsets.all(twenty),
+              padding: const EdgeInsets.only(left: twenty, right: 20),
               labelStyle: commonTextStyle(
                   fontSize: sixteen, fontWeight: FontWeight.w600),
               unselectedLabelStyle: commonTextStyle(

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/core/route/route_generator.dart';
 import 'package:junohealthapp/provider/auth_provider.dart';
+import 'package:junohealthapp/provider/dashborad_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
+  ChangeNotifierProvider<DashboardProvider>(create: (_) => DashboardProvider()),
 ];
 void main() {
   runApp(const MyApp());

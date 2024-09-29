@@ -27,6 +27,7 @@ const double zero020 = 0.020;
 const double zero0024 = 0.024;
 const double zero024 = 0.24;
 const double zero0040 = 0.040;
+const double zero32 = 0.32;
 const double zero30 = 0.30;
 const double zero40 = 0.40;
 const double zero45 = 0.45;

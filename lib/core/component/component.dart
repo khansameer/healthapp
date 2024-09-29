@@ -135,3 +135,34 @@ showMessageDialog(
         });
       });
 }
+
+void showAlertDialog(
+    {required BuildContext context, required VoidCallback onTap}) {
+  // Define the content of the alert dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Alert Dialog Title'),
+        content: Text('This is the content of the alert dialog.'),
+        actions: [
+          CommonButtonWidget(
+            onPressed: onTap,
+            text: "Okay",
+          )
+          /* TextButton(
+            onPressed: () {
+              // Close the dialog
+              Navigator.of(context).pop();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => const LoginScreen()),
+                      (Route<dynamic> route) => false);
+            },
+            child: Text('Close'),
+          ),*/
+        ],
+      );
+    },
+  );
+}

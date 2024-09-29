@@ -16,16 +16,13 @@ class LoginScreen extends StatelessWidget {
       width: size.width,
       height: size.height,
       color: Colors.white,
-      child: Container(
-        margin: const EdgeInsets.only(left: twenty, right: twenty),
-        child: const CommonTabBar(
-          length: 2,
-          tabs: [
-            Tab(text: login),
-            Tab(text: signup),
-          ],
-          children: [LoginView(), SignupView()],
-        ),
+      child: const CommonTabBar(
+        length: 2,
+        tabs: [
+          Tab(text: login),
+          Tab(text: signup),
+        ],
+        children: [LoginView(), SignupView()],
       ),
     );
   }
