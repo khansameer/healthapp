@@ -1,6 +1,8 @@
 class CommonModel {
   String? title;
   String? desc;
+  String? subDesc;
   String? image;
-  CommonModel({this.title, this.image, this.desc});
+  String? time;
+  CommonModel({this.title, this.image, this.desc, this.time, this.subDesc});
 }

@@ -61,14 +61,17 @@ class DashboardProvider extends ChangeNotifier {
   void loadQuiz() {
     _listQuiz = [
       CommonModel(
+          subDesc: "Take Quiz",
           title: "Health Quiz",
           desc: "Take part in Health Care Challenges Quiz",
           image: icGirls),
       CommonModel(
+          subDesc: "Chat",
           title: "Health Quiz1",
           desc: "Take part in Health Care Challenges Quiz",
           image: icGirls),
       CommonModel(
+          subDesc: "Take Quiz",
           title: "Health Quiz2",
           desc: "Take part in Health Care Challenges Quiz",
           image: icGirls),
@@ -120,6 +123,40 @@ class DashboardProvider extends ChangeNotifier {
       CommonModel(title: "Oncology", image: icCat5),
       CommonModel(title: "Ophthalmology", image: icCat7),
       CommonModel(title: "Orthopedics", image: icCat7),
+    ];
+    notifyListeners(); // Notify listeners that the list has changed
+  }
+
+  //load topNews Detsils
+
+  List<CommonModel> _topNewsList = [];
+  List<CommonModel> get topNewsList => _topNewsList;
+  void loadTopNewsDetails() {
+    _topNewsList = [
+      CommonModel(
+          image: icTopNewItem,
+          time: "54 minutes ago",
+          title: "Older Singaporeans\nvaccinated agai...",
+          desc:
+              "SINGAPORE - Most older Singaporeanswho \nwere born in or before 1980 and\nwere vaccina..."),
+      CommonModel(
+          time: "54 minutes ago",
+          title: "Older Singaporeans\nvaccinated agai...",
+          desc:
+              "SINGAPORE - Most older Singaporeanswho\nwere born in or before 1980 and\nwere vaccina...",
+          image: icTopNewItem),
+      CommonModel(
+          time: "54 minutes ago",
+          title: "Older Singaporeans\nvaccinated agai...",
+          desc:
+              "SINGAPORE - Most older Singaporeanswho\nwere born in or before 1980 and\nwere vaccina...",
+          image: icTopNewItem),
+      CommonModel(
+          time: "54 minutes ago",
+          title: "Older Singaporeans\nvaccinated agai...",
+          desc:
+              "SINGAPORE - Most older Singaporeanswho\nwere born in or before 1980 and\nwere vaccina...",
+          image: icTopNewItem),
     ];
     notifyListeners(); // Notify listeners that the list has changed
   }

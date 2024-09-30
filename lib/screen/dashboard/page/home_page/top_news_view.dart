@@ -5,6 +5,7 @@ import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/dashborad_provider.dart';
+import 'package:junohealthapp/screen/tops_news/top_news_details.dart';
 import 'package:provider/provider.dart';
 
 class TopNewsView extends StatelessWidget {
@@ -29,10 +30,18 @@ class TopNewsView extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 text: topNews.toUpperCase(),
               ),
-              CommonTextWidget(
-                textColor: colorGreen,
-                fontWeight: FontWeight.w600,
-                text: seeAll.toString(),
+              commonInkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TopNewsDetails()));
+                },
+                child: CommonTextWidget(
+                  textColor: colorGreen,
+                  fontWeight: FontWeight.w600,
+                  text: seeAll.toString(),
+                ),
               )
             ],
           ),

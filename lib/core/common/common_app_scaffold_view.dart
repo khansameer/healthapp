@@ -38,7 +38,7 @@ class CommonAppScaffoldView extends StatelessWidget {
                   case 1:
                     return const DoctorView();
                   case 2:
-                    return const ProfilePageView();
+                    return Container();
                   case 3:
                     return const ProfilePageView();
 

@@ -49,3 +49,6 @@ const String myHealth = "My Health Tips and Tricks";
 const String myTool = "My Tools";
 const String zipCode = "Zip Code";
 const String searchHint = "Search symptoms here...";
+const String todayHealthNews = "Today Health News";
+const String recent = "Recent";
+const String notifications = "Notifications";

@@ -1,4 +1,4 @@
-const String baseImagePath = "assets/icons/";
+const String baseImagePath = "assets/icons";
 const String icLogo = "$baseImagePath/ic_logo.png";
 const String icGoogle = "$baseImagePath/ic_google.png";
 const String icApple = "$baseImagePath/ic_apple.png";
@@ -23,3 +23,10 @@ const String icNews1 = "$baseImagePath/ic_news1.png";
 const String icNews2 = "$baseImagePath/ic_news2.png";
 const String icNews3 = "$baseImagePath/ic_news3.png";
 const String icProfileBG = "$baseImagePath/ic_profile_bg.png";
+const String icTopNewItem = "$baseImagePath/ic_top_new_item.png";
+const String icTopNewsImage = "$baseImagePath/ic_top_new_image.png";
+const String icTopImg1 = "$baseImagePath/ic_top_img1.png";
+const String icTopImg2 = "$baseImagePath/ic_top_img2.png";
+const String icAttach = "$baseImagePath/ic_attach.png";
+const String icCamera = "$baseImagePath/ic_camera.png";
+const String icSmile = "$baseImagePath/ic_smile.png";

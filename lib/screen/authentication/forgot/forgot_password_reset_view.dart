@@ -72,14 +72,15 @@ class ForgotPasswordResetView extends StatelessWidget {
                   topTextField: ten),
               CommonButtonWidget(
                 onPressed: () {
-                  showAlertDialog(
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
+                      (Route<dynamic> route) => false);
+                  /*showAlertDialog(
                       context: context,
                       onTap: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()),
-                            (Route<dynamic> route) => false);
-                      });
+
+                      });*/
                   /*Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => const LoginScreen()),
