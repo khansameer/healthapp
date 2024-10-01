@@ -17,7 +17,7 @@ class CommonButtonWidget extends StatelessWidget {
   double? textLeft;
 
   EdgeInsetsGeometry? padding;
-  VoidCallback onPressed;
+  VoidCallback ?onPressed;
   Color? colorButton;
   Color? colorText;
   Color? colorBorder;
@@ -34,7 +34,7 @@ class CommonButtonWidget extends StatelessWidget {
       this.fontSize,
       this.radius,
       this.top,
-      required this.onPressed,
+       this.onPressed,
       this.colorButton,
       this.left,
       this.right,

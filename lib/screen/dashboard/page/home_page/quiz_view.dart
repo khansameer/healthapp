@@ -6,6 +6,7 @@ import 'package:junohealthapp/core/common/common_button_widget.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/core/image/image_path.dart';
+import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/dashborad_provider.dart';
 import 'package:junohealthapp/screen/chat_screen/chat_screen.dart';
@@ -76,11 +77,8 @@ class QuizView extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 colorText: Colors.black,
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ChatScreen()));
+                                  pushScreen(context: context,routeName:RouteName.chatScreen );
+
                                 },
                                 colorButton: colorYellow,
                                 text: e.subDesc,

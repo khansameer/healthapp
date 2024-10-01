@@ -63,19 +63,38 @@ class ChatMessagesList extends StatelessWidget {
               alignment: message.isSentByMe
                   ? Alignment.centerRight
                   : Alignment.centerLeft,
-              child: Container(
-                padding: const EdgeInsets.all(ten),
-                margin: const EdgeInsets.symmetric(
-                    vertical: four, horizontal: sixteen),
-                decoration: BoxDecoration(
-                  color: message.isSentByMe ? colorSender : Colors.grey[300],
-                  borderRadius: BorderRadius.circular(eight),
-                ),
-                child: Text(
-                  message.text,
-                  style: TextStyle(
-                      color: message.isSentByMe ? Colors.white : Colors.black),
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+
+                  message.isSentByMe?const SizedBox.shrink():Container(
+                    width: thirtyFive,
+                    height: thirtyFive,
+                    decoration: commonBoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: const Center(
+                      child: ClipOval(
+                        child: Center(child: Icon(Icons.android,color: Colors.green,)),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(ten),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: four, horizontal: sixteen),
+                    decoration: BoxDecoration(
+                      color: message.isSentByMe ? colorSender : colorSender,
+                      borderRadius: BorderRadius.circular(eight),
+                    ),
+                    child: Text(
+                      message.text,
+                      style: TextStyle(
+                          color: message.isSentByMe ? Colors.white : Colors.white),
+                    ),
+                  ),
+                ],
               ),
             );
           },

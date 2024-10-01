@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:junohealthapp/core/app_constants.dart';
 import 'package:junohealthapp/core/color_utils.dart';
 import 'package:junohealthapp/core/component/component.dart';
-import 'package:junohealthapp/core/route/route.dart';
-import 'package:junohealthapp/main.dart';
+import 'package:junohealthapp/core/image/image_path.dart';
 import 'package:junohealthapp/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../core/image/image_path.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -33,11 +33,12 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: colorSplash,
-      body: Center(
+      backgroundColor: Colors.white,
+     // backgroundColor: colorSplash,
+      body:Container() /*Center(
         child: setAssetImage(
-            image: icLogo, width: size.width * 0.5, height: size.height * 0.2),
-      ),
+            image: icLogo, width: size.width * zero05, height: size.height * zero02),
+      )*/
     );
   }
 }

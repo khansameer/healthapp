@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/route/route.dart';
+import 'package:junohealthapp/demo_screen.dart';
 import 'package:junohealthapp/screen/authentication/forgot/forgot_password_opt_view.dart';
+import 'package:junohealthapp/screen/authentication/forgot/forgot_password_reset_view.dart';
 import 'package:junohealthapp/screen/authentication/forgot/forgot_screen.dart';
 import 'package:junohealthapp/screen/authentication/login/login_screen.dart';
-import 'package:junohealthapp/screen/authentication/signup/signup_screen.dart';
+import 'package:junohealthapp/screen/chat_screen/chat_screen.dart';
+
 import 'package:junohealthapp/screen/dashboard/dashboard_screen.dart';
+import 'package:junohealthapp/screen/notification/notification_screen.dart';
 import 'package:junohealthapp/screen/splash_screen.dart';
+import 'package:junohealthapp/screen/tops_news/top_news_details.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -19,21 +24,41 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const LoginScreen(),
             settings: const RouteSettings(name: RouteName.login));
+      case RouteName.forgotPasswordScreen:
+        return MaterialPageRoute(
+            builder: (_) => const ForgotScreen(),
+            settings:
+            const RouteSettings(name: RouteName.forgotPasswordScreen));
       case RouteName.forgotPasswordOptView:
         return MaterialPageRoute(
             builder: (_) => const ForgotPasswordOptView(),
             settings:
                 const RouteSettings(name: RouteName.forgotPasswordOptView));
-      case RouteName.forgotPasswordScreen:
-        return MaterialPageRoute(
-            builder: (_) => const ForgotScreen(),
-            settings:
-                const RouteSettings(name: RouteName.forgotPasswordScreen));
 
+      case RouteName.forgotPasswordResetView:
+        return MaterialPageRoute(
+            builder: (_) => const ForgotPasswordResetView(),
+            settings:
+            const RouteSettings(name: RouteName.forgotPasswordResetView));
       case RouteName.dashboard:
         return MaterialPageRoute(
             builder: (_) => const DashboardScreen(),
             settings: const RouteSettings(name: RouteName.dashboard));
+
+      case RouteName.notification:
+        return MaterialPageRoute(
+            builder: (_) => const NotificationScreen(),
+            settings: const RouteSettings(name: RouteName.notification));
+
+      case RouteName.chatScreen:
+        return MaterialPageRoute(
+            builder: (_) => const ChatScreen(),
+            settings: const RouteSettings(name: RouteName.chatScreen));
+
+      case RouteName.topNewsDetails:
+        return MaterialPageRoute(
+            builder: (_) => const TopNewsDetails(),
+            settings: const RouteSettings(name: RouteName.topNewsDetails));
 
       default:
         return MaterialPageRoute(

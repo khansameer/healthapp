@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:junohealthapp/core/app_constants.dart';
@@ -5,6 +6,9 @@ import 'package:junohealthapp/core/color_utils.dart';
 import 'package:junohealthapp/core/common/common_button_widget.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/common/common_textfield.dart';
+import 'package:junohealthapp/core/string/string_utils.dart';
+
+import '../route/route.dart';
 
 setAssetImage(
     {required String image, double? width, double? height, BoxFit? fit}) {
@@ -15,7 +19,19 @@ setAssetImage(
     fit: fit ?? BoxFit.cover,
   );
 }
-
+BoxDecoration commonBoxDecoration(
+    {Color? color,
+      BoxBorder? border,
+      BoxShape shape = BoxShape.rectangle,
+      BorderRadiusGeometry? borderRadius,
+      DecorationImage? image}) {
+  return BoxDecoration(
+      color: color,
+      image: image,
+      border: border,
+      shape: shape,
+      borderRadius: borderRadius);
+}
 commonTextStyle({FontWeight? fontWeight, double? fontSize, Color? color}) {
   return GoogleFonts.inter(
     color: color,
@@ -88,81 +104,63 @@ AppBar commonAppBar(
   );
 }
 
-showMessageDialog(
+
+pushScreen({required BuildContext context,required String routeName}){
+  Navigator.pushNamed(
+    // Use the parent widget's context, not the local one
+      Navigator.of(context, rootNavigator: true).context,
+      routeName??''
+  );
+}
+
+
+pushNamedAndRemoveUntil({required BuildContext context,required String routeName}){
+
+  Navigator.pushNamedAndRemoveUntil(
+      Navigator.of(context, rootNavigator: true).context, routeName??'', (route) => true);
+
+}
+
+void showCommonDialog(
     {required BuildContext context,
-    String? title,
-    String? content,
-    Widget? child,
-    Color? colorContextText,
-    bool isNegative = false,
-    String? positiveBtnText,
-    VoidCallback? onTapClose,
-    String? negativeBtnText}) {
+      required String title,
+      required String content,
+      String? btnPositive,
+      String? btnNegative,
+      bool isMessage=false,
+      VoidCallback? onPressPositive,
+      VoidCallback? onPressNegative}) {
   showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (context) {
-        return StatefulBuilder(builder: (context, setstate) {
-          return AlertDialog(
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(twenty),
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: CommonTextWidget(
+          text: title ,
+          fontSize: sixteen,
+          fontWeight: FontWeight.w700,
+        ),
+        content: CommonTextWidget(text: content),
+        actions: [
+          if (!isMessage)
+            CupertinoDialogAction(
+              onPressed: onPressNegative ??
+                      () {
+                    Navigator.of(context).pop();
+                  },
+              child: CommonTextWidget(text: btnNegative ??no,),
             ),
-            title: CommonTextWidget(
-              text: title.toString(),
-              fontSize: sixteen,
-              textColor: Colors.black,
-              textAlign: TextAlign.center,
-              fontWeight: FontWeight.w800,
-            ),
-            content: child ??
-                CommonTextWidget(
-                  textColor: Colors.black,
-                  text: content.toString(),
-                  textAlign: TextAlign.center,
-                ),
-            actions: [
-              CommonButtonWidget(
-                onPressed: onTapClose ??
-                    () {
-                      Navigator.pop(context);
-                    },
-                text: negativeBtnText ?? 'close',
-              )
-            ],
-          );
-        });
-      });
+
+          // Show only if isMessage is false
+          CupertinoDialogAction(
+            onPressed: onPressPositive ?? () {
+              Navigator.of(context).pop();
+            },
+            child: CommonTextWidget(text: btnPositive ?? okay,textColor: Colors.red,),
+          ),
+        ],
+      ));
 }
 
-void showAlertDialog(
-    {required BuildContext context, required VoidCallback onTap}) {
-  // Define the content of the alert dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Alert Dialog Title'),
-        content: Text('This is the content of the alert dialog.'),
-        actions: [
-          CommonButtonWidget(
-            onPressed: onTap,
-            text: "Okay",
-          )
-          /* TextButton(
-            onPressed: () {
-              // Close the dialog
-              Navigator.of(context).pop();
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => const LoginScreen()),
-                      (Route<dynamic> route) => false);
-            },
-            child: Text('Close'),
-          ),*/
-        ],
-      );
-    },
-  );
-}
+
+
+

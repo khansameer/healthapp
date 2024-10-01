@@ -5,6 +5,7 @@ import 'package:junohealthapp/core/common/common_app_scaffold_view.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/core/image/image_path.dart';
+import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/screen/notification/notification_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -34,10 +35,8 @@ class DashboardScreen extends StatelessWidget {
                       width: eighteen,
                       height: eighteen),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NotificationScreen()));
+
+                    pushScreen(context: context,routeName: RouteName.notification);
                   })
             ],
           ),

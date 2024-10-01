@@ -5,14 +5,10 @@ import 'package:junohealthapp/core/common/common_button_widget.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/core/image/image_path.dart';
+import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/auth_provider.dart';
-import 'package:junohealthapp/screen/authentication/forgot/forgot_screen.dart';
-import 'package:junohealthapp/screen/dashboard/dashboard_screen.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../core/route/route.dart';
-
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
@@ -20,8 +16,8 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Consumer<AuthProvider>(builder: (context, provider, child) {
+      padding: const EdgeInsets.all(0.0),
+      child: Consumer<AuthProvider>(builder: (contProvider, provider, child) {
         return ListView(
           children: [
             commonTextFiledView(
@@ -46,10 +42,9 @@ class LoginView extends StatelessWidget {
               alignment: Alignment.topRight,
               child: commonInkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ForgotScreen()));
+                  pushScreen(
+                      context: context,
+                      routeName: RouteName.forgotPasswordScreen);
                 },
                 child: CommonTextWidget(
                   top: ten,
@@ -62,10 +57,8 @@ class LoginView extends StatelessWidget {
             CommonButtonWidget(
               top: twenty,
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => const DashboardScreen()),
-                    (Route<dynamic> route) => false);
+                pushNamedAndRemoveUntil(
+                    context: context, routeName: RouteName.dashboard);
               },
               text: continueBtn,
             ),

@@ -16,7 +16,7 @@ class SignupView extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(0.0),
       child: Consumer<AuthProvider>(builder: (context, provider, child) {
         return ListView(
           children: [

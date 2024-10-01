@@ -6,7 +6,9 @@ import 'package:junohealthapp/core/app_constants.dart';
 import 'package:junohealthapp/core/color_utils.dart';
 import 'package:junohealthapp/core/common/common_button_widget.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
+import 'package:junohealthapp/core/common/commons_screen_container.dart';
 import 'package:junohealthapp/core/component/component.dart';
+import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/auth_provider.dart';
 import 'package:junohealthapp/screen/authentication/forgot/forgot_password_reset_view.dart';
@@ -23,10 +25,8 @@ class ForgotPasswordOptView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: commonAppBar(title: forgotPasswordText),
       body: Consumer<AuthProvider>(builder: (context, provider, child) {
-        return Container(
-          width: size.width,
-          height: size.height,
-          margin: const EdgeInsets.only(left: ten, right: ten),
+        return CommonsScreenContainer(
+
           child: ListView(
             children: [
               CommonTextWidget(
@@ -115,11 +115,9 @@ class ForgotPasswordOptView extends StatelessWidget {
                 top: size.height * zero004,
                 text: verifyCode,
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const ForgotPasswordResetView()));
+                  pushScreen(
+                      context: context,
+                      routeName: RouteName.forgotPasswordResetView);
                 },
               ),
               SizedBox(

@@ -52,3 +52,14 @@ const String searchHint = "Search symptoms here...";
 const String todayHealthNews = "Today Health News";
 const String recent = "Recent";
 const String notifications = "Notifications";
+const String no = "No";
+const String cancel = "Cancel";
+
+const String okay = "okay";
+const String passwordReset = "Password Reset";
+const String passwordResetMsg = "Your password has been successfully reset.";
+const String updatePassword = "Update Password";
+const String reEnterPassword = "Re-enter password";
+const String enterNewPassword = "Enter your new password";
+const String setNewPassword = "Set a new password";
+const String passwordTitleDesc = "Create a new password. Ensure it differs from\nprevious ones for security";

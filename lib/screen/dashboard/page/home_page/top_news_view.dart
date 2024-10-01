@@ -3,6 +3,7 @@ import 'package:junohealthapp/core/app_constants.dart';
 import 'package:junohealthapp/core/color_utils.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
+import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/dashborad_provider.dart';
 import 'package:junohealthapp/screen/tops_news/top_news_details.dart';
@@ -32,10 +33,7 @@ class TopNewsView extends StatelessWidget {
               ),
               commonInkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const TopNewsDetails()));
+                  pushScreen(context: context, routeName: RouteName.topNewsDetails);
                 },
                 child: CommonTextWidget(
                   textColor: colorGreen,

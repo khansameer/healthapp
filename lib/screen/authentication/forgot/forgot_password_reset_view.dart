@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/app_constants.dart';
 import 'package:junohealthapp/core/common/common_button_widget.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
+import 'package:junohealthapp/core/common/commons_screen_container.dart';
 import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/auth_provider.dart';
-import 'package:junohealthapp/screen/authentication/forgot/forgot_password_opt_view.dart';
-import 'package:junohealthapp/screen/authentication/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
 class ForgotPasswordResetView extends StatelessWidget {
@@ -20,10 +19,8 @@ class ForgotPasswordResetView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: commonAppBar(title: forgotPasswordText),
       body: Consumer<AuthProvider>(builder: (context, provider, child) {
-        return Container(
-          width: size.width,
-          height: size.height,
-          margin: const EdgeInsets.only(left: ten, right: ten),
+        return CommonsScreenContainer(
+
           child: ListView(
             children: [
               CommonTextWidget(
@@ -31,14 +28,13 @@ class ForgotPasswordResetView extends StatelessWidget {
                 textColor: Colors.black,
                 fontSize: sixteen,
                 fontWeight: FontWeight.w700,
-                text: "Set a new password",
+                text: setNewPassword,
               ),
               CommonTextWidget(
                 lineHeight: 1.5,
                 top: size.height * zero002,
                 textColor: Colors.black,
-                text:
-                    "Create a new password. Ensure it differs from\nprevious ones for security",
+                text:passwordTitleDesc,
               ),
               commonTextFiledView(
                   obscureText: !provider.isPasswordVisible,
@@ -52,11 +48,11 @@ class ForgotPasswordResetView extends StatelessWidget {
                           : Icons.visibility_off,
                     ),
                   ),
-                  topText: size.height * 0.05,
-                  hint: "Enter your new password",
+                  topText: size.height * zero005,
+                  hint: enterNewPassword,
                   topTextField: ten),
               commonTextFiledView(
-                  hint: "Re-enter password",
+                  hint: reEnterPassword,
                   obscureText: !provider.isConfirmPasswordVisible,
                   title: confirmPassword,
                   suffixIcon: IconButton(
@@ -72,33 +68,16 @@ class ForgotPasswordResetView extends StatelessWidget {
                   topTextField: ten),
               CommonButtonWidget(
                 onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                      (Route<dynamic> route) => false);
-                  /*showAlertDialog(
-                      context: context,
-                      onTap: () {
+                  showCommonDialog(
+                      btnNegative: cancel,
+                      context: context,title: passwordReset,content: passwordResetMsg,
+                  onPressPositive: (){
+                    pushNamedAndRemoveUntil(context: context,routeName: RouteName.login);
+                  });
 
-                      });*/
-                  /*Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                      (Route<dynamic> route) => false);*/
-                  /*   showMessageDialog(
-                      onTapClose: () {
-                        Navigator.of(context).pop();
-                        */ /*Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()),
-                            (Route<dynamic> route) => false);*/ /*
-                      },
-                      context: context,
-                      title: "Password Reset",
-                      content: "Your password has been successfully reset.");*/
                 },
                 top: size.height * zero004,
-                text: "Update Password",
+                text: updatePassword,
               ),
             ],
           ),

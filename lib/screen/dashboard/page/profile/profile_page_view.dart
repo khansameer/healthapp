@@ -52,10 +52,9 @@ class ProfilePageView extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           colorButton: colorSplash,
                           onPressed: () {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()),
-                                (Route<dynamic> route) => false);
+
+                            pushNamedAndRemoveUntil(context: context,routeName: RouteName.login);
+
                           },
                         )
                       ],
