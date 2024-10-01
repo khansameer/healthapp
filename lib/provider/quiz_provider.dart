@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart.';
-import 'package:junohealthapp/screen/quiz_view/quiz_result_screen.dart';
+import 'package:junohealthapp/core/component/component.dart';
+import 'package:junohealthapp/core/route/route.dart';
+
 class Question {
   final String question;
   final List<String> options;
@@ -8,17 +9,34 @@ class Question {
 
   Question(this.question, this.options, this.correctAnswer);
 }
-class QuizProvider extends ChangeNotifier{
+
+class QuizProvider extends ChangeNotifier {
   int currentQuestionIndex = 0;
-  List<int?> selectedAnswers = List<int?>.filled(5, null); // Stores selected answers
+  List<int?> selectedAnswers =
+      List<int?>.filled(5, null); // Stores selected answers
 
   // List of questions with options
   List<Question> questions = [
-    Question('What is the capital of France?', ['Paris', 'Berlin', 'Madrid', 'Rome'], 0),
-    Question('What is 2 + 2?', ['3', '4', '5', '6'], 1),
-    Question('Who wrote "Hamlet"?', ['Shakespeare', 'Tolstoy', 'Homer', 'Dante'], 0),
-    Question('What is the square root of 16?', ['2', '3', '4', '5'], 2),
-    Question('What is the boiling point of water?', ['50°C', '100°C', '150°C', '200°C'], 1),
+    Question(
+        'How often do you exercise?',
+        ['Daily', '3-4 times a week', '1-2 times a week', 'Rarely or never'],
+        0),
+    Question(
+        'How often do you exercise part2?',
+        ['Daily', '3-4 times a week', '1-2 times a week', 'Rarely or never'],
+        1),
+    Question(
+        'How often do you exercise part3?',
+        ['Daily', '3-4 times a week', '1-2 times a week', 'Rarely or never'],
+        2),
+    Question(
+        'How often do you exercise part 4?',
+        ['Daily', '3-4 times a week', '1-2 times a week', 'Rarely or never'],
+        2),
+    Question(
+        'How often do you exercise part 5?',
+        ['Daily', '3-4 times a week', '1-2 times a week', 'Rarely or never'],
+        0),
   ];
 
   // Method to update selected answer
@@ -32,15 +50,7 @@ class QuizProvider extends ChangeNotifier{
     if (currentQuestionIndex < questions.length - 1) {
       currentQuestionIndex++;
     } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => QuizResultScreen(
-            selectedAnswers: selectedAnswers,
-            questions: questions,
-          ),
-        ),
-      );
+      pushScreen(context: context, routeName: RouteName.quizResultScreen);
       // If last question, reset quiz
       //resetQuiz();
     }

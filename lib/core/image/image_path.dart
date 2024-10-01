@@ -30,3 +30,6 @@ const String icTopImg2 = "$baseImagePath/ic_top_img2.png";
 const String icAttach = "$baseImagePath/ic_attach.png";
 const String icCamera = "$baseImagePath/ic_camera.png";
 const String icSmile = "$baseImagePath/ic_smile.png";
+const String icChatUserIcon = "$baseImagePath/ic_chat_user_icon.png";
+const String icMedicine1 = "$baseImagePath/ic_medicine1.png";
+const String icMedicine2 = "$baseImagePath/ic_medicine2.png";

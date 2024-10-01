@@ -52,9 +52,8 @@ class ProfilePageView extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           colorButton: colorSplash,
                           onPressed: () {
-
-                            pushNamedAndRemoveUntil(context: context,routeName: RouteName.login);
-
+                            pushNamedAndRemoveUntil(
+                                context: context, routeName: RouteName.login);
                           },
                         )
                       ],
@@ -83,7 +82,13 @@ class ProfilePageView extends StatelessWidget {
               commonHeader(title: save),
               commonDivider(),
               commonContent(text: myHealthGoal),
-              commonContent(text: interactionCheck),
+              commonContent(
+                  text: interactionCheck,
+                  onTap: () {
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.interactionCheckScreen);
+                  }),
               commonContent(text: myHealth),
             ],
           ),
@@ -99,10 +104,11 @@ class ProfilePageView extends StatelessWidget {
     );
   }
 
-  commonContent({String? text}) {
+  commonContent({String? text, VoidCallback? onTap}) {
     return Column(
       children: [
         ListTile(
+          onTap: onTap,
           visualDensity: const VisualDensity(vertical: -4),
           dense: true,
           contentPadding: EdgeInsets.zero,

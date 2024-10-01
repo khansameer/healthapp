@@ -77,8 +77,15 @@ class QuizView extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 colorText: Colors.black,
                                 onPressed: () {
-                                  pushScreen(context: context,routeName:RouteName.chatScreen );
-
+                                  if (e.subDesc == "Chat") {
+                                    pushScreen(
+                                        context: context,
+                                        routeName: RouteName.chatScreen);
+                                  } else {
+                                    pushScreen(
+                                        context: context,
+                                        routeName: RouteName.quizViewScreen);
+                                  }
                                 },
                                 colorButton: colorYellow,
                                 text: e.subDesc,
