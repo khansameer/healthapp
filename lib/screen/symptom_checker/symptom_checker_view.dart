@@ -7,42 +7,31 @@ import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/core/image/image_path.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/quiz_provider.dart';
+import 'package:junohealthapp/provider/symptoms_cheeker_provider.dart';
 import 'package:provider/provider.dart';
 
-class QuizViewScreen extends StatelessWidget {
-  const QuizViewScreen({super.key});
+class SymptomCheckerView extends StatelessWidget {
+  const SymptomCheckerView({super.key});
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
-    final quizProvider = Provider.of<QuizProvider>(context);
+    final quizProvider = Provider.of<SymptomsCheekerProvider>(context);
     final currentQuestion =
         quizProvider.questions[quizProvider.currentQuestionIndex];
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: commonAppBar(title: healthQuiz),
+      appBar: commonAppBar(title: "Symptoms Cheeker"),
       body: CommonsScreenContainer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: size.height * zero003,
+              height: size.height * zero008,
             ),
-            Align(
-              alignment: Alignment.center,
-              child: setAssetImage(image: icLogo, width: size.width * zero04),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: CommonTextWidget(
-                top: ten,
-                fontWeight: FontWeight.w700,
-                fontSize: sixteen,
-                text: healthQuiz,
-              ),
-            ),
+
             CommonTextWidget(
               top: size.height * zero004,
               text: currentQuestion.question,

@@ -33,7 +33,9 @@ class TopNewsView extends StatelessWidget {
               ),
               commonInkWell(
                 onTap: () {
-                  pushScreen(context: context, routeName: RouteName.topNewsDetails);
+                  pushScreen(
+                      context: context,
+                      routeName: RouteName.topNewsDetailsScreen);
                 },
                 child: CommonTextWidget(
                   textColor: colorGreen,

@@ -12,17 +12,22 @@ class DemoScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CommonButtonWidget(onPressed: (){
-              Navigator.pushNamed(context, RouteName.forgotPasswordScreen);
-            },
-            text: "One1",),
-            CommonButtonWidget(onPressed: (){
-
-              Navigator.pushNamed(context, RouteName.dashboard);
-            },
-              text: "One1",),
-            CommonButtonWidget(onPressed: (){},
-              text: "One1",),
+            CommonButtonWidget(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteName.forgotPasswordScreen);
+              },
+              text: "One1",
+            ),
+            CommonButtonWidget(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteName.dashboardScreen);
+              },
+              text: "One1",
+            ),
+            CommonButtonWidget(
+              onPressed: () {},
+              text: "One1",
+            ),
           ],
         ),
       ),

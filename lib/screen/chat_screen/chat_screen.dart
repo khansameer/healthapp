@@ -6,7 +6,8 @@ import 'package:junohealthapp/screen/chat_screen/chat_input_widget.dart';
 import 'package:junohealthapp/screen/chat_screen/chat_list_widget.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({super.key, this.isAI = false});
+  final bool? isAI;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ChatScreen extends StatelessWidget {
           flexibleSpace: SafeArea(
             child: Container(
               padding: const EdgeInsets.only(right: ten),
-              color: colorGreen,
+              color: isAI == true ? colorSplash : colorGreen,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +47,7 @@ class ChatScreen extends StatelessWidget {
                       ),
                       CommonTextWidget(
                         left: 10,
-                        text: 'AI Doctor',
+                        text: isAI == true ? 'AI Doctor' : "AI Therapist",
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                       ),

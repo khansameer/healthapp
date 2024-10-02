@@ -52,7 +52,7 @@ class AuthProvider extends ChangeNotifier {
   redirectToLogin({required BuildContext context}) {
     Timer(const Duration(seconds: 3), () async {
       Navigator.pushNamedAndRemoveUntil(
-          context, RouteName.login, (route) => false);
+          context, RouteName.loginScreen, (route) => false);
     });
   }
 }

@@ -33,3 +33,6 @@ const String icSmile = "$baseImagePath/ic_smile.png";
 const String icChatUserIcon = "$baseImagePath/ic_chat_user_icon.png";
 const String icMedicine1 = "$baseImagePath/ic_medicine1.png";
 const String icMedicine2 = "$baseImagePath/ic_medicine2.png";
+const String icHealthGoal = "$baseImagePath/ic_health_goal.png";
+const String icMedicineIcon = "$baseImagePath/ic_medicine_icon.png";
+const String icMen = "$baseImagePath/ic_men.png";

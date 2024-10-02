@@ -39,7 +39,8 @@ class DashboardScreen extends StatelessWidget {
                       height: eighteen),
                   onTap: () {
                     pushScreen(
-                        context: context, routeName: RouteName.notification);
+                        context: context,
+                        routeName: RouteName.notificationScreen);
                   })
             ],
           ),

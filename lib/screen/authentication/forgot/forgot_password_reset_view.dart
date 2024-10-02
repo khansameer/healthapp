@@ -20,7 +20,6 @@ class ForgotPasswordResetView extends StatelessWidget {
       appBar: commonAppBar(title: forgotPasswordText),
       body: Consumer<AuthProvider>(builder: (context, provider, child) {
         return CommonsScreenContainer(
-
           child: ListView(
             children: [
               CommonTextWidget(
@@ -34,7 +33,7 @@ class ForgotPasswordResetView extends StatelessWidget {
                 lineHeight: 1.5,
                 top: size.height * zero002,
                 textColor: Colors.black,
-                text:passwordTitleDesc,
+                text: passwordTitleDesc,
               ),
               commonTextFiledView(
                   obscureText: !provider.isPasswordVisible,
@@ -70,11 +69,13 @@ class ForgotPasswordResetView extends StatelessWidget {
                 onPressed: () {
                   showCommonDialog(
                       btnNegative: cancel,
-                      context: context,title: passwordReset,content: passwordResetMsg,
-                  onPressPositive: (){
-                    pushNamedAndRemoveUntil(context: context,routeName: RouteName.login);
-                  });
-
+                      context: context,
+                      title: passwordReset,
+                      content: passwordResetMsg,
+                      onPressPositive: () {
+                        pushNamedAndRemoveUntil(
+                            context: context, routeName: RouteName.loginScreen);
+                      });
                 },
                 top: size.height * zero004,
                 text: updatePassword,

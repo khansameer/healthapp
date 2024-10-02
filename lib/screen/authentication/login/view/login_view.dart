@@ -9,6 +9,7 @@ import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
+
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
@@ -58,7 +59,7 @@ class LoginView extends StatelessWidget {
               top: twenty,
               onPressed: () {
                 pushNamedAndRemoveUntil(
-                    context: context, routeName: RouteName.dashboard);
+                    context: context, routeName: RouteName.dashboardScreen);
               },
               text: continueBtn,
             ),

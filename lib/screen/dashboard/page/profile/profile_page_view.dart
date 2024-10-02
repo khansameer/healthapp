@@ -53,7 +53,8 @@ class ProfilePageView extends StatelessWidget {
                           colorButton: colorSplash,
                           onPressed: () {
                             pushNamedAndRemoveUntil(
-                                context: context, routeName: RouteName.login);
+                                context: context,
+                                routeName: RouteName.loginScreen);
                           },
                         )
                       ],
@@ -71,10 +72,35 @@ class ProfilePageView extends StatelessWidget {
             children: [
               commonHeader(),
               commonDivider(),
-              commonContent(),
-              commonContent(text: symptomsTacker),
-              commonContent(text: aiDoctor),
-              commonContent(text: medicineReminder),
+              commonContent(
+                  text: medicineReminder,
+                  onTap: () {
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.medicineReminderView);
+                  }),
+              commonContent(
+                  text: symptomsTacker,
+                  onTap: () {
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.symptomCheckerScreen);
+                  }),
+              commonContent(
+                  text: aiDoctor,
+                  onTap: () {
+                    pushScreen(
+                        arguments: true,
+                        context: context,
+                        routeName: RouteName.chatScreen);
+                  }),
+              commonContent(
+                  text: medicineReminder,
+                  onTap: () {
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.medicineReminderView);
+                  }),
               commonContent(text: pregnancy),
               SizedBox(
                 height: size.height * zero002,

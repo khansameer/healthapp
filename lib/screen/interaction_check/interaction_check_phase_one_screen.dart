@@ -7,6 +7,8 @@ import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/core/image/image_path.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 
+import '../../core/route/route.dart';
+
 class InteractionCheckPhaseOneScreen extends StatelessWidget {
   const InteractionCheckPhaseOneScreen({super.key});
 
@@ -33,29 +35,15 @@ class InteractionCheckPhaseOneScreen extends StatelessWidget {
                 top: size.height * 0.03,
                 right: size.width * 0.4,
                 text: save,
+                onPressed: () {
+                  pushNamedAndRemoveUntil(
+                      context: context, routeName: RouteName.dashboardScreen);
+                },
               ),
             )
           ],
         ),
       ),
-    );
-  }
-
-  _imageView() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        setAssetImage(
-            fit: BoxFit.scaleDown,
-            width: oneHundred,
-            height: oneHundred,
-            image: icMedicine1),
-        setAssetImage(
-            fit: BoxFit.scaleDown,
-            width: oneHundred,
-            height: oneHundred,
-            image: icMedicine2)
-      ],
     );
   }
 }
