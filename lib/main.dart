@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/core/route/route_generator.dart';
 import 'package:junohealthapp/provider/chat_provider.dart';
@@ -16,6 +17,10 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<QuizProvider>(create: (_) => QuizProvider()),
 ];
 void main() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
