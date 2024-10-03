@@ -8,8 +8,6 @@ import 'package:junohealthapp/core/image/image_path.dart';
 import 'package:junohealthapp/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -33,12 +31,13 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.white,
-     // backgroundColor: colorSplash,
-      body:Container() /*Center(
-        child: setAssetImage(
-            image: icLogo, width: size.width * zero05, height: size.height * zero02),
-      )*/
-    );
+        //backgroundColor: Colors.white,
+        backgroundColor: colorSplash,
+        body: Center(
+          child: setAssetImage(
+              image: icLogo,
+              width: size.width * zero05,
+              height: size.height * zero02),
+        ));
   }
 }

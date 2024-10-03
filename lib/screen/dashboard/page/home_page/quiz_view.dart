@@ -59,7 +59,7 @@ class QuizView extends StatelessWidget {
                             children: [
                               CommonTextWidget(
                                 text: e.title,
-                                fontSize: twenty,
+                                fontSize: sixteen,
                                 fontWeight: FontWeight.w800,
                                 textColor: Colors.black,
                               ),
@@ -77,8 +77,21 @@ class QuizView extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 colorText: Colors.black,
                                 onPressed: () {
-                                  pushScreen(context: context,routeName:RouteName.chatScreen );
-
+                                  if (e.subDesc == "Chat") {
+                                    pushScreen(
+                                      arguments: false,
+                                      context: context,
+                                      routeName: RouteName.chatScreen,
+                                    );
+                                  } else if (e.subDesc == "Set Goal") {
+                                    pushScreen(
+                                        context: context,
+                                        routeName: RouteName.healthGoalScreen);
+                                  } else {
+                                    pushScreen(
+                                        context: context,
+                                        routeName: RouteName.quizViewScreen);
+                                  }
                                 },
                                 colorButton: colorYellow,
                                 text: e.subDesc,

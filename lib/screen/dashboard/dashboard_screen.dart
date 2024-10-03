@@ -19,10 +19,13 @@ class DashboardScreen extends StatelessWidget {
       appbar: AppBar(
         backgroundColor: colorBG,
         centerTitle: false,
+        leadingWidth: 0,
         title: ListTile(
-          leading:
-              setAssetImage(image: icDummyUser, width: fifty, height: fifty),
+          contentPadding: EdgeInsets.zero,
+          leading: setAssetImage(image: icDummyUser, width: 40, height: fifty),
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonTextWidget(
                 text: "Hi Emma,",
@@ -35,8 +38,9 @@ class DashboardScreen extends StatelessWidget {
                       width: eighteen,
                       height: eighteen),
                   onTap: () {
-
-                    pushScreen(context: context,routeName: RouteName.notification);
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.notificationScreen);
                   })
             ],
           ),

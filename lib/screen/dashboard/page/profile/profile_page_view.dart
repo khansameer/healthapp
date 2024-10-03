@@ -52,9 +52,9 @@ class ProfilePageView extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           colorButton: colorSplash,
                           onPressed: () {
-
-                            pushNamedAndRemoveUntil(context: context,routeName: RouteName.login);
-
+                            pushNamedAndRemoveUntil(
+                                context: context,
+                                routeName: RouteName.loginScreen);
                           },
                         )
                       ],
@@ -72,10 +72,35 @@ class ProfilePageView extends StatelessWidget {
             children: [
               commonHeader(),
               commonDivider(),
-              commonContent(),
-              commonContent(text: symptomsTacker),
-              commonContent(text: aiDoctor),
-              commonContent(text: medicineReminder),
+              commonContent(
+                  text: medicineReminder,
+                  onTap: () {
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.medicineReminderView);
+                  }),
+              commonContent(
+                  text: symptomsTacker,
+                  onTap: () {
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.symptomCheckerScreen);
+                  }),
+              commonContent(
+                  text: aiDoctor,
+                  onTap: () {
+                    pushScreen(
+                        arguments: true,
+                        context: context,
+                        routeName: RouteName.chatScreen);
+                  }),
+              commonContent(
+                  text: medicineReminder,
+                  onTap: () {
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.medicineReminderView);
+                  }),
               commonContent(text: pregnancy),
               SizedBox(
                 height: size.height * zero002,
@@ -83,7 +108,13 @@ class ProfilePageView extends StatelessWidget {
               commonHeader(title: save),
               commonDivider(),
               commonContent(text: myHealthGoal),
-              commonContent(text: interactionCheck),
+              commonContent(
+                  text: interactionCheck,
+                  onTap: () {
+                    pushScreen(
+                        context: context,
+                        routeName: RouteName.interactionCheckScreen);
+                  }),
               commonContent(text: myHealth),
             ],
           ),
@@ -99,10 +130,11 @@ class ProfilePageView extends StatelessWidget {
     );
   }
 
-  commonContent({String? text}) {
+  commonContent({String? text, VoidCallback? onTap}) {
     return Column(
       children: [
         ListTile(
+          onTap: onTap,
           visualDensity: const VisualDensity(vertical: -4),
           dense: true,
           contentPadding: EdgeInsets.zero,

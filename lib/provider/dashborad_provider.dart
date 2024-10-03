@@ -67,11 +67,11 @@ class DashboardProvider extends ChangeNotifier {
           image: icGirls),
       CommonModel(
           subDesc: "Chat",
-          title: "Health Quiz1",
+          title: "Juno's AI Doctor\nAssistant:",
           desc: "Take part in Health Care Challenges Quiz",
           image: icGirls),
       CommonModel(
-          subDesc: "Take Quiz",
+          subDesc: "Set Goal",
           title: "Health Quiz2",
           desc: "Take part in Health Care Challenges Quiz",
           image: icGirls),

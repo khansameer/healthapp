@@ -19,12 +19,13 @@ setAssetImage(
     fit: fit ?? BoxFit.cover,
   );
 }
+
 BoxDecoration commonBoxDecoration(
     {Color? color,
-      BoxBorder? border,
-      BoxShape shape = BoxShape.rectangle,
-      BorderRadiusGeometry? borderRadius,
-      DecorationImage? image}) {
+    BoxBorder? border,
+    BoxShape shape = BoxShape.rectangle,
+    BorderRadiusGeometry? borderRadius,
+    DecorationImage? image}) {
   return BoxDecoration(
       color: color,
       image: image,
@@ -32,6 +33,7 @@ BoxDecoration commonBoxDecoration(
       shape: shape,
       borderRadius: borderRadius);
 }
+
 commonTextStyle({FontWeight? fontWeight, double? fontSize, Color? color}) {
   return GoogleFonts.inter(
     color: color,
@@ -104,63 +106,67 @@ AppBar commonAppBar(
   );
 }
 
-
-pushScreen({required BuildContext context,required String routeName}){
+pushScreen(
+    {required BuildContext context,
+    required String routeName,
+    Object? arguments}) {
   Navigator.pushNamed(
-    // Use the parent widget's context, not the local one
+      arguments: arguments,
+      // Use the parent widget's context, not the local one
       Navigator.of(context, rootNavigator: true).context,
-      routeName??''
-  );
+      routeName);
 }
 
-
-pushNamedAndRemoveUntil({required BuildContext context,required String routeName}){
-
+pushNamedAndRemoveUntil(
+    {required BuildContext context, required String routeName}) {
   Navigator.pushNamedAndRemoveUntil(
-      Navigator.of(context, rootNavigator: true).context, routeName??'', (route) => true);
-
+      Navigator.of(context, rootNavigator: true).context,
+      routeName ?? '',
+      (route) => true);
 }
 
 void showCommonDialog(
     {required BuildContext context,
-      required String title,
-      required String content,
-      String? btnPositive,
-      String? btnNegative,
-      bool isMessage=false,
-      VoidCallback? onPressPositive,
-      VoidCallback? onPressNegative}) {
+    required String title,
+    required String content,
+    String? btnPositive,
+    String? btnNegative,
+    bool isMessage = false,
+    VoidCallback? onPressPositive,
+    VoidCallback? onPressNegative}) {
   showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
-        title: CommonTextWidget(
-          text: title ,
-          fontSize: sixteen,
-          fontWeight: FontWeight.w700,
-        ),
-        content: CommonTextWidget(text: content),
-        actions: [
-          if (!isMessage)
-            CupertinoDialogAction(
-              onPressed: onPressNegative ??
-                      () {
-                    Navigator.of(context).pop();
-                  },
-              child: CommonTextWidget(text: btnNegative ??no,),
+            title: CommonTextWidget(
+              text: title,
+              fontSize: sixteen,
+              fontWeight: FontWeight.w700,
             ),
+            content: CommonTextWidget(text: content),
+            actions: [
+              if (!isMessage)
+                CupertinoDialogAction(
+                  onPressed: onPressNegative ??
+                      () {
+                        Navigator.of(context).pop();
+                      },
+                  child: CommonTextWidget(
+                    text: btnNegative ?? no,
+                  ),
+                ),
 
-          // Show only if isMessage is false
-          CupertinoDialogAction(
-            onPressed: onPressPositive ?? () {
-              Navigator.of(context).pop();
-            },
-            child: CommonTextWidget(text: btnPositive ?? okay,textColor: Colors.red,),
-          ),
-        ],
-      ));
+              // Show only if isMessage is false
+              CupertinoDialogAction(
+                onPressed: onPressPositive ??
+                    () {
+                      Navigator.of(context).pop();
+                    },
+                child: CommonTextWidget(
+                  text: btnPositive ?? okay,
+                  textColor: Colors.red,
+                ),
+              ),
+            ],
+          ));
 }
-
-
-
-

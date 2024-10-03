@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/screen/dashboard/page/home_page/quiz_view.dart';
-import 'package:junohealthapp/screen/quiz_view/quiz_view.dart';
+import 'package:junohealthapp/screen/quiz_view/quiz_view_screen.dart';
 
 enum Gender { male, female }
 
@@ -50,13 +50,9 @@ class AuthProvider extends ChangeNotifier {
   }
 
   redirectToLogin({required BuildContext context}) {
-
     Timer(const Duration(seconds: 3), () async {
-
-    /*  Navigator.pushNamedAndRemoveUntil(
-          context, RouteName.login, (route) => false);*/
-
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>QuizViewScreen()));
+      Navigator.pushNamedAndRemoveUntil(
+          context, RouteName.loginScreen, (route) => false);
     });
   }
 }
