@@ -11,6 +11,7 @@ import 'package:junohealthapp/provider/medicine_provider.dart';
 import 'package:junohealthapp/provider/quiz_provider.dart';
 import 'package:junohealthapp/provider/symptoms_cheeker_provider.dart';
 import 'package:junohealthapp/screen/dashboard/page/home_page/quiz_view.dart';
+import 'package:junohealthapp/shared_preferences/preference_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -29,6 +30,9 @@ List<SingleChildWidget> providers = [
       create: (_) => InteractionProvider()),
 ];
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  PreferenceHelper.load().then((value) {});
+
   runApp(const MyApp());
 }
 

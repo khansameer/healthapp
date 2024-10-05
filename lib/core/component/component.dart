@@ -8,6 +8,7 @@ import 'package:junohealthapp/core/common/common_drop_down_view.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/common/common_textfield.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
+import 'package:junohealthapp/shared_preferences/preference_helper.dart';
 
 import '../route/route.dart';
 
@@ -48,6 +49,7 @@ commonTextFiledView(
     bool? obscureText,
     double? topText,
     String? hint,
+      String? Function(String?)? validator,
     double? topTextField,
     Widget? suffixIcon,
     TextEditingController? controller}) {
@@ -65,6 +67,7 @@ commonTextFiledView(
         hint: hint,
         colorFill: Colors.white,
         suffixIcon: suffixIcon,
+        validator: validator,
         obscureText: obscureText,
         controller: controller,
         radius: twelve,
@@ -205,4 +208,26 @@ void showCommonDialog(
               ),
             ],
           ));
+}
+
+Future getToken() async {
+  String? token =
+      await PreferenceHelper.getString(key: PreferenceHelper.authToken);
+
+  print('=================token${token}');
+  return token;
+}
+
+Widget showLoaderList() {
+  return Center(
+    child: Container(
+        decoration: BoxDecoration(
+            color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+        padding: const EdgeInsets.all(20),
+        child: const CupertinoActivityIndicator(
+          radius: 20,
+          color: Colors.white,
+          animating: true,
+        )),
+  );
 }

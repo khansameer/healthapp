@@ -1,14 +1,24 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/route/route.dart';
+import 'package:junohealthapp/screen/authentication/model/register_model.dart';
 import 'package:junohealthapp/screen/dashboard/page/home_page/quiz_view.dart';
 import 'package:junohealthapp/screen/quiz_view/quiz_view_screen.dart';
+import 'package:junohealthapp/service/api_config.dart';
+import 'package:junohealthapp/shared_preferences/preference_helper.dart';
+
+import '../service/api_services.dart';
 
 enum Gender { male, female }
 
 class AuthProvider extends ChangeNotifier {
+  final _service = ApiService();
+  bool _isFetching = false;
+
+  bool get isFetching => _isFetching;
   bool _isPasswordVisible = false;
 
   bool get isPasswordVisible => _isPasswordVisible;
@@ -19,6 +29,11 @@ class AuthProvider extends ChangeNotifier {
   String _pin = '';
 
   String get pin => _pin;
+
+  final _tetEmail = TextEditingController();
+  final _tetPassword = TextEditingController();
+  TextEditingController get tetEmail => _tetEmail;
+  TextEditingController get tetPassword => _tetPassword;
 
   void updatePin(String newPin) {
     _pin = newPin;
@@ -106,6 +121,40 @@ class AuthProvider extends ChangeNotifier {
   String? get selectedValueWight => _selectedValueWight;
   set selectionValueWeightValue(String newPin) {
     _selectedValueWight = newPin;
+    notifyListeners();
+  }
+
+  RegisterModel? _registerModel;
+
+  RegisterModel? get registerModel => _registerModel;
+
+  Future<void> registerAndLoginAPI(
+      {required BuildContext context,
+      required Map<String, dynamic> body,
+      required bool isLogin}) async {
+    _isFetching = true;
+    notifyListeners();
+    try {
+      final response = await _service.callPostMethodApi(
+          url: isLogin ? ApiConfig.login : ApiConfig.registerUser, body: body);
+      _registerModel = RegisterModel.fromJson(json.decode(response));
+
+      if (_registerModel?.userId != null && _registerModel?.token != null) {
+        await PreferenceHelper.setString(
+            key: PreferenceHelper.authToken, value: '${_registerModel?.token}');
+        await PreferenceHelper.setString(
+            key: PreferenceHelper.userID, value: '${_registerModel?.userId}');
+        await PreferenceHelper.setBool(
+            key: PreferenceHelper.isLOGIN, value: true);
+      } else {
+        print('=====fai error');
+      }
+    } catch (e) {
+      // showDialog(context: context,);
+      print('=====fail ${e.toString()}');
+      // _registerModel = RegisterModel(message: 'server_error'.tr());
+    }
+    _isFetching = false;
     notifyListeners();
   }
 }
