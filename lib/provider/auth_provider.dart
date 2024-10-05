@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/route/route.dart';
 import 'package:junohealthapp/screen/authentication/model/register_model.dart';
-import 'package:junohealthapp/screen/dashboard/page/home_page/quiz_view.dart';
-import 'package:junohealthapp/screen/quiz_view/quiz_view_screen.dart';
 import 'package:junohealthapp/service/api_config.dart';
 import 'package:junohealthapp/shared_preferences/preference_helper.dart';
 

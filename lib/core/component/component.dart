@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:junohealthapp/core/app_constants.dart';
 import 'package:junohealthapp/core/color_utils.dart';
-import 'package:junohealthapp/core/common/common_button_widget.dart';
 import 'package:junohealthapp/core/common/common_drop_down_view.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/common/common_textfield.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/shared_preferences/preference_helper.dart';
-
-import '../route/route.dart';
 
 setAssetImage(
     {required String image, double? width, double? height, BoxFit? fit}) {
@@ -49,7 +46,7 @@ commonTextFiledView(
     bool? obscureText,
     double? topText,
     String? hint,
-      String? Function(String?)? validator,
+    String? Function(String?)? validator,
     double? topTextField,
     Widget? suffixIcon,
     TextEditingController? controller}) {
@@ -160,7 +157,7 @@ pushNamedAndRemoveUntil(
     {required BuildContext context, required String routeName}) {
   Navigator.pushNamedAndRemoveUntil(
       Navigator.of(context, rootNavigator: true).context,
-      routeName ?? '',
+      routeName,
       (route) => true);
 }
 

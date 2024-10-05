@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/app_constants.dart';
-import 'package:junohealthapp/core/color_utils.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/provider/dashborad_provider.dart';
