@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/app_constants.dart';
 
 import 'package:junohealthapp/core/common/common_button_widget.dart';
+import 'package:junohealthapp/core/common/common_drop_down_view.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
 
@@ -54,33 +55,41 @@ class SignupView extends StatelessWidget {
                 CommonTextWidget(text: female),
               ],
             ),
-            commonTextFiledView(
-                hint: "25 Years",
-                suffixIcon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.grey,
-                ),
-                title: age,
-                topText: size.height * zero001,
-                topTextField: ten),
-            commonTextFiledView(
-                hint: "5.6",
-                suffixIcon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.grey,
-                ),
-                title: height,
-                topText: size.height * zero002,
-                topTextField: ten),
-            commonTextFiledView(
-                hint: "60 to 65 KG",
-                suffixIcon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.grey,
-                ),
-                title: weight,
-                topText: size.height * zero002,
-                topTextField: ten),
+            commonDropDownWithTextView(
+              selectedValue: provider.selectedValue,
+              hint: age,
+              topDropDownValue: ten,
+              size: size,
+              title: age,
+              items: provider.ageNumbers,
+              onChanged: (String? value) {
+                provider.selectionValue = value ?? '';
+              },
+            ),
+            commonDropDownWithTextView(
+              selectedValue: provider.selectedValueHeight,
+              hint: age,
+              topText: size.height * zero002,
+              topDropDownValue: ten,
+              size: size,
+              title: height,
+              items: provider.height,
+              onChanged: (String? value) {
+                provider.selectionValueHeightValue = value ?? '';
+              },
+            ),
+            commonDropDownWithTextView(
+              selectedValue: provider.selectedValueWight,
+              hint: weight,
+              topText: size.height * zero002,
+              topDropDownValue: ten,
+              size: size,
+              title: weight,
+              items: provider.weight,
+              onChanged: (String? value) {
+                provider.selectionValueWeightValue = value ?? '';
+              },
+            ),
             commonTextFiledView(
                 hint: health,
                 title: health,

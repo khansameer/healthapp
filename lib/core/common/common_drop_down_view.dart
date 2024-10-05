@@ -30,6 +30,13 @@ class CommonDropDownView extends StatelessWidget {
       child: DropdownButton2<String>(
         isDense: true,
         isExpanded: true,
+        dropdownStyleData: DropdownStyleData(
+          offset: const Offset(-0, -10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            color: Colors.white,
+          ),
+        ),
         alignment: Alignment.center,
         hint: Row(
           children: [
@@ -37,7 +44,7 @@ class CommonDropDownView extends StatelessWidget {
               child: CommonTextWidget(
                 text: hint ?? 'Select Item',
                 fontSize: twelve,
-                left: twenty,
+                left: horizontal != null ? 10 : twenty,
                 textColor: hintColor ?? Colors.grey,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -49,7 +56,7 @@ class CommonDropDownView extends StatelessWidget {
                   value: item,
                   child: CommonTextWidget(
                     text: item,
-                    left: horizontal != null ? 0 : twenty,
+                    left: horizontal != null ? 10 : twenty,
                   ),
                 ))
             .toList(),

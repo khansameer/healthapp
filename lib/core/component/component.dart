@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:junohealthapp/core/app_constants.dart';
 import 'package:junohealthapp/core/color_utils.dart';
 import 'package:junohealthapp/core/common/common_button_widget.dart';
+import 'package:junohealthapp/core/common/common_drop_down_view.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/common/common_textfield.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
@@ -62,12 +63,47 @@ commonTextFiledView(
       ),
       CommonTextField(
         hint: hint,
+        colorFill: Colors.white,
         suffixIcon: suffixIcon,
         obscureText: obscureText,
         controller: controller,
         radius: twelve,
         top: topTextField,
       )
+    ],
+  );
+}
+
+commonDropDownWithTextView(
+    {String? title,
+    double? topText,
+    double? topDropDownValue,
+    String? hint,
+    required Size size,
+    void Function(String?)? onChanged,
+    String? selectedValue,
+    required List<String> items}) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      CommonTextWidget(
+        text: title,
+        top: topText,
+        fontWeight: FontWeight.w500,
+        textColor: Colors.black,
+      ),
+      Container(
+        width: size.width,
+        margin: EdgeInsets.only(top: topDropDownValue ?? 0),
+        child: CommonDropDownView(
+            horizontal: 5,
+            onChanged: onChanged,
+            selectedValue: selectedValue,
+            hint: hint,
+            size: size,
+            items: items),
+      ),
     ],
   );
 }

@@ -31,13 +31,15 @@ class CategoryView extends StatelessWidget {
               color: Colors.white,
               borderRadius:
                   BorderRadius.circular(twelve), //border corner radius
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: colorBG,
-                  spreadRadius: 10,
-                  blurRadius: 7,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.grey.shade600, spreadRadius: 1, blurRadius: 8)
+                // BoxShadow(
+                //   color: colorBG,
+                //   spreadRadius: 10,
+                //   blurRadius: 7,
+                //   offset: Offset(0, 2),
+                // ),
                 //you can set more BoxShadow() here
               ],
             ),
