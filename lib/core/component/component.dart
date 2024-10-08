@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:junohealthapp/core/app_constants.dart';
 import 'package:junohealthapp/core/color_utils.dart';
-import 'package:junohealthapp/core/common/common_button_widget.dart';
+import 'package:junohealthapp/core/common/common_drop_down_view.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/common/common_textfield.dart';
 import 'package:junohealthapp/core/string/string_utils.dart';
-
-import '../route/route.dart';
+import 'package:junohealthapp/shared_preferences/preference_helper.dart';
 
 setAssetImage(
     {required String image, double? width, double? height, BoxFit? fit}) {
@@ -47,6 +46,7 @@ commonTextFiledView(
     bool? obscureText,
     double? topText,
     String? hint,
+    String? Function(String?)? validator,
     double? topTextField,
     Widget? suffixIcon,
     TextEditingController? controller}) {
@@ -62,12 +62,48 @@ commonTextFiledView(
       ),
       CommonTextField(
         hint: hint,
+        colorFill: Colors.white,
         suffixIcon: suffixIcon,
+        validator: validator,
         obscureText: obscureText,
         controller: controller,
         radius: twelve,
         top: topTextField,
       )
+    ],
+  );
+}
+
+commonDropDownWithTextView(
+    {String? title,
+    double? topText,
+    double? topDropDownValue,
+    String? hint,
+    required Size size,
+    void Function(String?)? onChanged,
+    String? selectedValue,
+    required List<String> items}) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      CommonTextWidget(
+        text: title,
+        top: topText,
+        fontWeight: FontWeight.w500,
+        textColor: Colors.black,
+      ),
+      Container(
+        width: size.width,
+        margin: EdgeInsets.only(top: topDropDownValue ?? 0),
+        child: CommonDropDownView(
+            horizontal: 5,
+            onChanged: onChanged,
+            selectedValue: selectedValue,
+            hint: hint,
+            size: size,
+            items: items),
+      ),
     ],
   );
 }
@@ -121,7 +157,7 @@ pushNamedAndRemoveUntil(
     {required BuildContext context, required String routeName}) {
   Navigator.pushNamedAndRemoveUntil(
       Navigator.of(context, rootNavigator: true).context,
-      routeName ?? '',
+      routeName,
       (route) => true);
 }
 
@@ -169,4 +205,26 @@ void showCommonDialog(
               ),
             ],
           ));
+}
+
+Future getToken() async {
+  String? token =
+      await PreferenceHelper.getString(key: PreferenceHelper.authToken);
+
+  print('=================token${token}');
+  return token;
+}
+
+Widget showLoaderList() {
+  return Center(
+    child: Container(
+        decoration: BoxDecoration(
+            color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+        padding: const EdgeInsets.all(20),
+        child: const CupertinoActivityIndicator(
+          radius: 20,
+          color: Colors.white,
+          animating: true,
+        )),
+  );
 }

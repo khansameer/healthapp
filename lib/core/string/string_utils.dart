@@ -89,3 +89,7 @@ const String findDoctor = "Find Doctor";
 const String mySymptoms = "My Symptoms";
 const String skipSection = "Skip this section";
 const String passOrMedication = "Past or Current Medications";
+
+const String emptyEmail = "Please enter email address.";
+const String emailValidationMsg = "Please enter valid email address.";
+const String emptyPassword = "Please enter password.";

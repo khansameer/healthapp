@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/app_constants.dart';
-import 'package:junohealthapp/core/color_utils.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/provider/dashborad_provider.dart';
@@ -31,13 +30,15 @@ class CategoryView extends StatelessWidget {
               color: Colors.white,
               borderRadius:
                   BorderRadius.circular(twelve), //border corner radius
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: colorBG,
-                  spreadRadius: 10,
-                  blurRadius: 7,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.grey.shade600, spreadRadius: 1, blurRadius: 8)
+                // BoxShadow(
+                //   color: colorBG,
+                //   spreadRadius: 10,
+                //   blurRadius: 7,
+                //   offset: Offset(0, 2),
+                // ),
                 //you can set more BoxShadow() here
               ],
             ),
