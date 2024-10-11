@@ -31,11 +31,12 @@ List<SingleChildWidget> providers = [
       create: (_) => InteractionProvider()),
 ];
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  WidgetsFlutterBinding.ensureInitialized();
+
   PreferenceHelper.load().then((value) {});
 
   runApp(const MyApp());
