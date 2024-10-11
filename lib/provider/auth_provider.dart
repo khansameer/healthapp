@@ -1,18 +1,24 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/route/route.dart';
+import 'package:junohealthapp/firebase/firebase_service.dart';
+import 'package:junohealthapp/screen/authentication/login/login_screen.dart';
 import 'package:junohealthapp/screen/authentication/model/register_model.dart';
+import 'package:junohealthapp/screen/dashboard/dashboard_screen.dart';
 import 'package:junohealthapp/service/api_config.dart';
 import 'package:junohealthapp/shared_preferences/preference_helper.dart';
 
+import '../main.dart';
 import '../service/api_services.dart';
 
 enum Gender { male, female }
 
-class AuthProvider extends ChangeNotifier {
+class AuthProviders extends ChangeNotifier {
   final _service = ApiService();
   bool _isFetching = false;
 
@@ -28,8 +34,12 @@ class AuthProvider extends ChangeNotifier {
 
   String get pin => _pin;
 
+  final _tetName = TextEditingController();
+  final _tetUserName = TextEditingController();
   final _tetEmail = TextEditingController();
   final _tetPassword = TextEditingController();
+  TextEditingController get tetName => _tetName;
+  TextEditingController get tetUserName => _tetUserName;
   TextEditingController get tetEmail => _tetEmail;
   TextEditingController get tetPassword => _tetPassword;
 
@@ -64,8 +74,17 @@ class AuthProvider extends ChangeNotifier {
 
   redirectToLogin({required BuildContext context}) {
     Timer(const Duration(seconds: 3), () async {
-      Navigator.pushNamedAndRemoveUntil(
-          context, RouteName.loginScreen, (route) => false);
+
+      if( await PreferenceHelper.getBool(key: PreferenceHelper.isLOGIN)==true){
+        Navigator.pushNamedAndRemoveUntil(
+            context, RouteName.dashboardScreen, (route) => false);
+      }
+      else
+        {
+          Navigator.pushNamedAndRemoveUntil(
+              context, RouteName.loginScreen, (route) => false);
+        }
+
     });
   }
 
@@ -155,4 +174,168 @@ class AuthProvider extends ChangeNotifier {
     _isFetching = false;
     notifyListeners();
   }
+
+
+
+  Future<bool> checkUser({String? email, String? password}) async {
+    _isFetching = true;
+    notifyListeners();
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('loginUser')
+        .where('email', isEqualTo: email)
+        .where('password', isEqualTo: password)
+
+        .get();
+
+    return querySnapshot.docs.isNotEmpty;
+  }
+
+  Future login(BuildContext context) async {
+    bool exists = await checkUser(email: tetEmail.text, password: tetPassword.text);
+    if (exists) {
+      _isFetching = true;
+      PreferenceHelper.setString(
+          key: PreferenceHelper.email, value: tetEmail.text ?? '');
+      PreferenceHelper.setBool(key: PreferenceHelper.isLOGIN, value: true);
+      MyApp.navigatorKey.currentState
+          ?.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (ctx) => const DashboardScreen(),
+        ),
+            (route) => false,
+      );
+      _isFetching = false;
+      notifyListeners();
+
+
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Error"),
+        ),
+      );
+
+      _isFetching = false;
+      notifyListeners();
+    }
+    _isFetching = false;
+    notifyListeners();
+    return exists;
+  }
+  final FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  Future<bool> checkDuplicateEmail(
+      {required String collectionName,
+        required String field,
+        required String value}) async {
+    QuerySnapshot query = await fireStore
+        .collection("users")
+        .where(field, isEqualTo: value)
+        .limit(1) // We only need to check if at least one document exists
+        .get();
+
+    return query.docs.isNotEmpty;
+  }
+
+
+  Future<List<DocumentSnapshot>> getUserList() async {
+    String? email=await  PreferenceHelper.getString(key: PreferenceHelper.email);
+
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection("loginUser")
+        .get();
+
+    List<DocumentSnapshot> userList = querySnapshot.docs;
+
+    List<DocumentSnapshot> filteredUserList = userList.where((doc) {
+      return doc['email'] != email;
+    }).toList();
+
+    return filteredUserList;
+  }
+
+
+  Future<bool> addNewUsers(BuildContext context) async {
+    _isFetching = true;
+    notifyListeners();
+
+    bool exists = await checkDuplicateEmail(
+        collectionName: "loginUser",
+        field: "email",
+        value: tetEmail.text ?? '');
+
+    if (!exists) {
+      try {
+        String? token = await FirebaseMessaging.instance.getToken();
+
+        CollectionReference chatsRef = FirebaseFirestore.instance.collection("loginUser");
+        DocumentReference result = await chatsRef.add({
+          "name": tetName.text,
+          "email": tetEmail.text,
+          'username': tetUserName.text,
+          'password': tetPassword.text,
+          'token': token,
+          "createdAt": FieldValue.serverTimestamp(),
+        });
+
+        _isFetching = false;
+        notifyListeners();
+
+        if (result.id.isNotEmpty) {
+          // User added successfully
+
+
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("User added successfully!"),
+            ),
+          );
+
+          MyApp.navigatorKey.currentState
+              ?.pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (ctx) => const LoginScreen(),
+            ),
+                (route) => false,
+          );
+
+          tetEmail.clear();
+          tetPassword.clear();
+          tetName.clear();
+          tetUserName.clear();
+
+          return true;
+        }
+      } catch (e) {
+        // Error handling
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Failed to add user: $e"),
+          ),
+        );
+      } finally {
+        _isFetching = false;
+        notifyListeners();
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Email already exists"),
+        ),
+      );
+      _isFetching = false;
+      notifyListeners();
+    }
+
+    return false; // User not added
+  }
+
+}
+class User {
+  final String name;
+  final String username;
+  final String photoUrl;
+
+  User({required this.name, required this.username, required this.photoUrl});
 }

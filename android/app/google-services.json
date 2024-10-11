@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1029410372305",
+    "project_id": "healthapp-a107f",
+    "storage_bucket": "healthapp-a107f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029410372305:android:df74a64f6dd4f7356263f0",
+        "android_client_info": {
+          "package_name": "com.sa.junohealthapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwNudFfXNTCGP7w201i1PhzZkjD6iRdPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

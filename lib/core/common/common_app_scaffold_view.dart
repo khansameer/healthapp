@@ -11,6 +11,7 @@ import 'package:junohealthapp/screen/dashboard/page/profile/profile_page_view.da
 import 'package:provider/provider.dart';
 
 import '../../screen/dashboard/page/doctor/doctor_view.dart';
+import '../../screen/doctor_list_page.dart';
 
 class CommonAppScaffoldView extends StatelessWidget {
   const CommonAppScaffoldView(
@@ -38,7 +39,7 @@ class CommonAppScaffoldView extends StatelessWidget {
                   case 1:
                     return const DoctorView();
                   case 2:
-                    return Container();
+                    return  DoctorListPage();
                   case 3:
                     return const ProfilePageView();
 
@@ -66,8 +67,10 @@ class CommonAppScaffoldView extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             items: <BottomNavigationBarItem>[
               commonItem(text: home, image: icHome),
+              commonItem(text: home, image: icHome),
+              commonItem(text: "Doctor list", image: icMedicine),
               commonItem(text: doctor, image: icDoctor),
-              commonItem(text: medicine, image: icMedicine),
+
               commonItem(text: profile, image: icProfile),
             ],
           ),

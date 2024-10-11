@@ -18,7 +18,7 @@ class ForgotPasswordResetView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: commonAppBar(title: forgotPasswordText),
-      body: Consumer<AuthProvider>(builder: (context, provider, child) {
+      body: Consumer<AuthProviders>(builder: (context, provider, child) {
         return CommonsScreenContainer(
           child: ListView(
             children: [

@@ -23,7 +23,7 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AuthProvider>().redirectToLogin(context: context);
+      context.read<AuthProviders>().redirectToLogin(context: context);
     });
   }
 

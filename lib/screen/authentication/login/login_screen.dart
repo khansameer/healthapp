@@ -6,7 +6,6 @@ import 'package:junohealthapp/core/string/string_utils.dart';
 import 'package:junohealthapp/screen/authentication/login/view/login_view.dart';
 import 'package:junohealthapp/screen/authentication/login/view/signup_view.dart';
 
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -23,9 +22,10 @@ class LoginScreen extends StatelessWidget {
           Tab(text: login),
           Tab(text: signup),
         ],
-        children: [CommonsScreenContainer(child: LoginView()), CommonsScreenContainer(
-            bottom: twenty  ,
-            child: SignupView())],
+        children: [
+          CommonsScreenContainer(child: LoginView()),
+          CommonsScreenContainer(bottom: twenty, child: SignupView())
+        ],
       ),
     );
   }

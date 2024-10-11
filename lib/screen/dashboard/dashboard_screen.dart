@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:junohealthapp/core/app_constants.dart';
 import 'package:junohealthapp/core/color_utils.dart';
 import 'package:junohealthapp/core/common/common_app_scaffold_view.dart';
+import 'package:junohealthapp/core/common/common_button_widget.dart';
 import 'package:junohealthapp/core/common/common_text_widget.dart';
 import 'package:junohealthapp/core/component/component.dart';
 import 'package:junohealthapp/core/image/image_path.dart';
 import 'package:junohealthapp/core/route/route.dart';
+import 'package:junohealthapp/screen/authentication/login/login_screen.dart';
 import 'package:junohealthapp/screen/notification/notification_screen.dart';
+import 'package:junohealthapp/shared_preferences/preference_helper.dart';
+
+import '../../main.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -51,7 +56,24 @@ class DashboardScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          setAssetImage(image: icDummyUser, width: fifty, height: fifty)
+
+          CommonButtonWidget(text: "Logout",
+          padding: EdgeInsets.zero,
+          right: 10,
+          onPressed: () async {
+
+           await PreferenceHelper.clear();
+           MyApp.navigatorKey.currentState
+               ?.pushAndRemoveUntil(
+             MaterialPageRoute(
+               builder: (ctx) => const LoginScreen(),
+             ),
+                 (route) => false,
+           );
+          },
+          width: 100,
+          height: 35,)
+          // setAssetImage(image: icDummyUser, width: fifty, height: fifty)
         ],
       ),
     );

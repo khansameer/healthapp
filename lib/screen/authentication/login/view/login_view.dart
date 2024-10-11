@@ -22,7 +22,7 @@ class LoginView extends StatelessWidget {
       key: formLoginKey,
       child: Padding(
         padding: const EdgeInsets.all(0.0),
-        child: Consumer<AuthProvider>(builder: (contProvider, provider, child) {
+        child: Consumer<AuthProviders>(builder: (contProvider, provider, child) {
           return Stack(
             children: [
               ListView(
@@ -82,23 +82,7 @@ class LoginView extends StatelessWidget {
                   CommonButtonWidget(
                     top: twenty,
                     onPressed: () {
-                      final isValid =
-                          formLoginKey.currentState?.validate() ?? false;
-                      if (isValid) {
-                        Map<String, dynamic> body = {
-                          "email": provider.tetEmail.text,
-                          "password": provider.tetPassword.text,
-                        };
-
-                        provider.registerAndLoginAPI(
-                            context: context, body: body, isLogin: true);
-                        formLoginKey.currentState?.reset();
-                      } else {
-                        formLoginKey.currentState?.save();
-                      }
-
-                      /*pushNamedAndRemoveUntil(
-                          context: context, routeName: RouteName.dashboardScreen);*/
+                      provider.login(context);
                     },
                     text: continueBtn,
                   ),
