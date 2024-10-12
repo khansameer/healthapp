@@ -26,6 +26,8 @@ class UserCard extends StatefulWidget {
 
 class _UserCardState extends State<UserCard> {
   String? email;
+  String? callID;
+  String? clientCallID;
   @override
   void initState() {
     super.initState();
@@ -34,8 +36,8 @@ class _UserCardState extends State<UserCard> {
 
   gmailEmail() async {
     email = await PreferenceHelper.getString(key: PreferenceHelper.email);
-
-    print('=====email$email');
+    callID = widget.data['email'];
+    print('=====email${email}_$callID');
     /*if (model.username !=
         FirebaseService.currentUser.username) {*/
   }

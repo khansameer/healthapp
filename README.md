@@ -5,6 +5,9 @@ A new Flutter project.
 ## Getting Started
 
 
+1)go to sdk platfrom-tool path
+2)./adb pair 192.168.131.53:38913  
+3)./adb connect  192.168.131.53:37067
 keytool -list -v -keystore "c:\users\sameer\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
 
 This project is a starting point for a Flutter application.

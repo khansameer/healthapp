@@ -48,6 +48,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appID: VideoAuth.appID /*input your AppID*/,
       appSign: VideoAuth.appSign /*input your AppSign*/,
       userID: userID,
+      notificationConfig: ZegoCallInvitationNotificationConfig(
+          androidNotificationConfig: ZegoCallAndroidNotificationConfig()),
       userName: userName,
       plugins: [ZegoUIKitSignalingPlugin()],
     );
