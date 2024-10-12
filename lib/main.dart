@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart';
@@ -16,15 +17,21 @@ import 'package:junohealthapp/provider/interaction_provider.dart';
 import 'package:junohealthapp/provider/medicine_provider.dart';
 import 'package:junohealthapp/provider/quiz_provider.dart';
 import 'package:junohealthapp/provider/symptoms_cheeker_provider.dart';
+import 'package:junohealthapp/screen/video_call_screen.dart';
 import 'package:junohealthapp/shared_preferences/preference_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 import 'core/firebase/firebase_options.dart';
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+import 'firebase/notifi_service.dart';
+import 'main.dart';
 
-  print("Handling a background message: ${message.messageId}");
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  if (message.notification?.body != null) {}
+  print('==444444======${message.data.toString()}');
+  LocalNotificationService.display(message);
 }
 
 List<SingleChildWidget> providers = [
@@ -41,9 +48,21 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<InteractionProvider>(
       create: (_) => InteractionProvider()),
 ];
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+Future<void> messageHandler() async {
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+    LocalNotificationService.display(event);
+  });
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -54,14 +73,48 @@ Future<void> main() async {
   await FirebaseService.setupFirebase();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  if (!kIsWeb) {
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+    } else {}
 
-  runApp(const MyApp());
+    //   final fcmToken = await FirebaseMessaging.instance.getToken();
+    await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  }
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+
+  // call the useSystemCallingUI
+  ZegoUIKit().initLog().then((value) {
+    ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
+      [ZegoUIKitSignalingPlugin()],
+    );
+
+    runApp(MyApp(navigatorKey: navigatorKey));
+  });
+  //runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-  static final GlobalKey<NavigatorState> navigatorKey =
-  GlobalKey<NavigatorState>();
+  MyApp({super.key, required this.navigatorKey});
+  GlobalKey<NavigatorState> navigatorKey;
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -71,21 +124,60 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    if (!kIsWeb) {
+      final navigatorKey = GlobalKey<NavigatorState>();
+      Firebase.initializeApp();
+      FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+      firebaseMessaging.requestPermission(
+          alert: true, badge: true, sound: true);
+      LocalNotificationService.initialize(context, navigatorKey);
+      // LocalNotificationService.initialize(context, navigatorKey);
+      LocalNotificationService.requestIOSPermissions();
+
+      FirebaseMessaging.instance.getInitialMessage().then((message) {
+        if (message != null) {
+          final routeFromMessage = message.data["type"];
+        }
+      });
+
+      ///forground work
+      FirebaseMessaging.onMessage.listen((message) {
+        if (message.notification != null) {
+          if (kDebugMode) {
+            print(message.notification!.body);
+          }
+          if (kDebugMode) {
+            print(message.notification!.title);
+          }
+        }
+        print('=====ddddddeeree===${message}');
+
+        showNotification(message);
+      });
+
+      ///When the app is in background but opened and user taps
+      ///on the notification
+      FirebaseMessaging.onMessageOpenedApp.listen((message) {
+        print('======message=====$message');
+      });
+    }
     getToken();
     // Handle messages when app is in background but not terminated
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('===========$message');
-      if (message.data['call'] == 'start') {
-        _startVideoCall();
-      }
+      print('======dddddd=====$message');
+      if (message.data['call'] == 'start') {}
     });
 
-    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
       print('===========$message');
-      if (message != null && message.data['call'] == 'start') {
-        _startVideoCall();
-      }
+      if (message != null && message.data['call'] == 'start') {}
     });
+  }
+
+  Future<void> showNotification(RemoteMessage message) async {
+    LocalNotificationService.display(message);
   }
 
   getToken() async {
@@ -93,30 +185,12 @@ class _MyAppState extends State<MyApp> {
     print('==getToken==== $token');
   }
 
-  void _startVideoCall() {
-    // Navigate to the video call screen
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ZegoUIKitPrebuiltCall(
-          appID: VideoAuth.appID,
-          appSign: VideoAuth.appSign,
-          userID: "abc",
-          userName:"Sameer",
-          callID: "sameer",
-          config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
-        ),
-      ),
-    );
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
       child: MaterialApp(
-        navigatorKey: MyApp.navigatorKey,
+        navigatorKey: widget.navigatorKey,
         title: "appName",
         initialRoute: RouteName.splashScreen,
         onGenerateRoute: RouteGenerator.generateRoute,

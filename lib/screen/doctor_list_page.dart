@@ -33,10 +33,15 @@ class DoctorListPage extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: documents.length,
                 itemBuilder: (context, index) {
+                  DocumentSnapshot document = documents[index];
+                  String documentId = document.id; // Get the document ID
+                  print('=====================documentID$documentId');
                   Map<String, dynamic> data =
                       documents[index].data() as Map<String, dynamic>;
-                  return UserCard(data: data);
-
+                  return UserCard(
+                    data: data,
+                    documentID: documentId,
+                  );
                 },
               );
             },

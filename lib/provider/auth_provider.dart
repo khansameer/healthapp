@@ -74,17 +74,14 @@ class AuthProviders extends ChangeNotifier {
 
   redirectToLogin({required BuildContext context}) {
     Timer(const Duration(seconds: 3), () async {
-
-      if( await PreferenceHelper.getBool(key: PreferenceHelper.isLOGIN)==true){
+      if (await PreferenceHelper.getBool(key: PreferenceHelper.isLOGIN) ==
+          true) {
         Navigator.pushNamedAndRemoveUntil(
             context, RouteName.dashboardScreen, (route) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            context, RouteName.loginScreen, (route) => false);
       }
-      else
-        {
-          Navigator.pushNamedAndRemoveUntil(
-              context, RouteName.loginScreen, (route) => false);
-        }
-
     });
   }
 
@@ -175,8 +172,6 @@ class AuthProviders extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   Future<bool> checkUser({String? email, String? password}) async {
     _isFetching = true;
     notifyListeners();
@@ -184,30 +179,63 @@ class AuthProviders extends ChangeNotifier {
         .collection('loginUser')
         .where('email', isEqualTo: email)
         .where('password', isEqualTo: password)
-
         .get();
 
     return querySnapshot.docs.isNotEmpty;
   }
 
   Future login(BuildContext context) async {
-    bool exists = await checkUser(email: tetEmail.text, password: tetPassword.text);
+    bool exists =
+        await checkUser(email: tetEmail.text, password: tetPassword.text);
     if (exists) {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('loginUser')
+          .where('email', isEqualTo: tetEmail.text)
+          .where('password', isEqualTo: tetPassword.text)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        querySnapshot.docs.forEach((doc) {
+          //  String documentId = doc.id;
+          Map<String, dynamic> userDetails = doc.data() as Map<String, dynamic>;
+          String documentId = doc.id; // Get the document ID
+          print('User ID: $documentId');
+          print('User Details: $userDetails');
+          print('Document ID: $documentId');
+          PreferenceHelper.setString(
+              key: PreferenceHelper.userID, value: documentId ?? '');
+          PreferenceHelper.setString(
+              key: PreferenceHelper.userName,
+              value: userDetails['username'] ?? '');
+          PreferenceHelper.setString(
+              key: PreferenceHelper.email, value: tetEmail.text ?? '');
+          PreferenceHelper.setBool(key: PreferenceHelper.isLOGIN, value: true);
+
+          updateToken();
+          navigatorKey.currentState?.pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (ctx) => const DashboardScreen(),
+            ),
+            (route) => false,
+          );
+        });
+      } else {
+        print('No matching documents found');
+      }
+
       _isFetching = true;
       PreferenceHelper.setString(
           key: PreferenceHelper.email, value: tetEmail.text ?? '');
       PreferenceHelper.setBool(key: PreferenceHelper.isLOGIN, value: true);
-      MyApp.navigatorKey.currentState
-          ?.pushAndRemoveUntil(
+
+      /*updateToken();
+      navigatorKey.currentState?.pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (ctx) => const DashboardScreen(),
         ),
-            (route) => false,
-      );
+        (route) => false,
+      );*/
       _isFetching = false;
       notifyListeners();
-
-
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -222,11 +250,12 @@ class AuthProviders extends ChangeNotifier {
     notifyListeners();
     return exists;
   }
+
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
   Future<bool> checkDuplicateEmail(
       {required String collectionName,
-        required String field,
-        required String value}) async {
+      required String field,
+      required String value}) async {
     QuerySnapshot query = await fireStore
         .collection("users")
         .where(field, isEqualTo: value)
@@ -236,14 +265,12 @@ class AuthProviders extends ChangeNotifier {
     return query.docs.isNotEmpty;
   }
 
-
   Future<List<DocumentSnapshot>> getUserList() async {
-    String? email=await  PreferenceHelper.getString(key: PreferenceHelper.email);
+    String? email =
+        await PreferenceHelper.getString(key: PreferenceHelper.email);
 
-
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection("loginUser")
-        .get();
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection("loginUser").get();
 
     List<DocumentSnapshot> userList = querySnapshot.docs;
 
@@ -253,7 +280,6 @@ class AuthProviders extends ChangeNotifier {
 
     return filteredUserList;
   }
-
 
   Future<bool> addNewUsers(BuildContext context) async {
     _isFetching = true;
@@ -268,7 +294,8 @@ class AuthProviders extends ChangeNotifier {
       try {
         String? token = await FirebaseMessaging.instance.getToken();
 
-        CollectionReference chatsRef = FirebaseFirestore.instance.collection("loginUser");
+        CollectionReference chatsRef =
+            FirebaseFirestore.instance.collection("loginUser");
         DocumentReference result = await chatsRef.add({
           "name": tetName.text,
           "email": tetEmail.text,
@@ -284,20 +311,17 @@ class AuthProviders extends ChangeNotifier {
         if (result.id.isNotEmpty) {
           // User added successfully
 
-
-
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("User added successfully!"),
             ),
           );
 
-          MyApp.navigatorKey.currentState
-              ?.pushAndRemoveUntil(
+          navigatorKey.currentState?.pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (ctx) => const LoginScreen(),
             ),
-                (route) => false,
+            (route) => false,
           );
 
           tetEmail.clear();
@@ -331,7 +355,34 @@ class AuthProviders extends ChangeNotifier {
     return false; // User not added
   }
 
+  Future<void> updateToken() async {
+    try {
+      // Get a reference to Firestore
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      QuerySnapshot querySnapshot = await firestore
+          .collection('loginUser') // Replace 'users' with your collection name
+          .where('email', isEqualTo: tetEmail.text)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+        String docId = documentSnapshot.id;
+        String? token = await FirebaseMessaging.instance.getToken();
+        await firestore.collection('loginUser').doc(docId).update({
+          'token': token,
+          "createdAt": FieldValue.serverTimestamp(),
+        });
+
+        print('Record updated successfully!');
+      } else {
+        print('No record found with that email.');
+      }
+    } catch (e) {
+      print('Failed to update record: $e');
+    }
+  }
 }
+
 class User {
   final String name;
   final String username;

@@ -5,6 +5,7 @@ class PreferenceHelper {
   static const String userData = "userData";
   static const String userID = "userID";
   static const String email = "email";
+  static const String userName = "userName";
   static const String isEmailSend = "isEmailSend";
   static const String mobile = "mobile";
   static const String isLOGIN = "is_login";

@@ -51,6 +51,7 @@ dependencies:
   googleapis_auth: ^1.6.0
   zego_uikit_prebuilt_call: ^4.16.3
   zego_uikit_signaling_plugin: ^2.8.4
+  flutter_local_notifications: ^17.2.3
 
 dev_dependencies:
   flutter_test:
