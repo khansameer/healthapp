@@ -219,7 +219,7 @@ Widget showLoaderList() {
   return Center(
     child: Container(
         decoration: BoxDecoration(
-            color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+            color: colorGreen, borderRadius: BorderRadius.circular(10)),
         padding: const EdgeInsets.all(20),
         child: const CupertinoActivityIndicator(
           radius: 20,

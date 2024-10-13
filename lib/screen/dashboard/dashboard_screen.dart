@@ -41,9 +41,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     print('==========userName$userName');
     print('==========userID$userID');
 
-    /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
-    /// when app's user is logged in or re-logged in
-    /// We recommend calling this method as soon as the user logs in to your app.
     ZegoUIKitPrebuiltCallInvitationService().init(
       appID: VideoAuth.appID /*input your AppID*/,
       appSign: VideoAuth.appSign /*input your AppSign*/,
@@ -106,6 +103,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             padding: EdgeInsets.zero,
             right: 10,
             onPressed: () async {
+              onUserLogout();
               await PreferenceHelper.clear();
               navigatorKey.currentState?.pushAndRemoveUntil(
                 MaterialPageRoute(
